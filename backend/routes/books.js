@@ -104,7 +104,7 @@ bookrouter.get("/get-all-books", async (req, res) => {
 // ! get recent books api 
 bookrouter.get("/get-recent-books", async (req, res) => {
     try {
-        const books = await Books.find().sort({ createdAt: -1 }).limit(3)
+        const books = await Books.find().sort({ createdAt: -1 }).limit(6)
         return res.status(200).json({
             data: books,
             status: "success"

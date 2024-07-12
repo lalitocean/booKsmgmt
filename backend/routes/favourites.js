@@ -56,7 +56,7 @@ favouriterouter.put("/rem-from-fav", authntication2, async (req, res) => {
 })
 
 // !get all book from favourite
-favouriterouter.get("/get-fav", async (req, res) => {
+favouriterouter.get("/get-fav", authntication2, async (req, res) => {
     try {
 
         const { _id } = req.user
