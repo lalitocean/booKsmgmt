@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa6";
@@ -8,17 +9,18 @@ const SignUp = () => {
     const [showp2, setShowp2] = useState(false)
 
     const [data, setData] = useState({
-        name: "",
+        username: "",
         email: "",
+        address: "",
         password: "",
-        confirmpassword: ""
+
     })
 
     function handleonchange(e) {
         const { name, value } = e.target;
-        setData((preve) => {
+        setData((prev) => {
             return {
-                ...preve,
+                ...prev,
                 [name]: value
             }
         })
@@ -32,15 +34,16 @@ const SignUp = () => {
 
     // * STORE THE DATA IN THE DATABASE 
     const postdata = async () => {
-        if (data.password === data.confirmpassword) {
-            try {
-
-            } catch (error) {
-
+        try {
+            if (data.name === "" || data.address === "" || data.email === "" || data.password === "") {
+                alert("all fields are required ")
             }
 
-        } else {
-
+            const res = await axios.post("http://localhost:8080/api/v1/sign-up", data)
+            alert(res.data.message)
+            navigate('/login')
+        } catch (error) {
+            alert(error.res.data.message)
         }
 
     }
@@ -56,10 +59,10 @@ const SignUp = () => {
                     </div>
                     <form action="" onSubmit={handlesubmit} className='flex flex-col gap-2'>
                         <div className='grid '>
-                            <label htmlFor="name">Name:</label>
+                            <label htmlFor="username">Name:</label>
                             <div className='bg-slate-200 p-2 rounded-sm'>
                                 <input type="text"
-                                    name='name'
+                                    name='username'
                                     placeholder='enter your name'
                                     onChange={handleonchange}
                                     value={data.name}
@@ -78,6 +81,17 @@ const SignUp = () => {
                                     className='w-full outline-none h-full bg-transparent' />
                             </div>
                         </div>
+                        <div className='grid  '>
+                            <label htmlFor="address">Address</label>
+                            <div className='bg-slate-200 p-2 rounded-sm'>
+                                <input type="text"
+                                    name='address'
+                                    placeholder='la  '
+                                    onChange={handleonchange}
+                                    value={data.address}
+                                    className='w-full outline-none h-full bg-transparent' />
+                            </div>
+                        </div>
                         <div className='grid '>
                             <label htmlFor="password">Create Password:</label>
                             <div className='bg-slate-200 p-2 flex items-center rounded-sm   '>
@@ -90,23 +104,6 @@ const SignUp = () => {
                                 <div className='cursor-pointer' onClick={() => setShowp(!showp)}>
                                     <span> {
                                         showp ? < FaRegEyeSlash /> : <FaRegEye />
-                                    }
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' grid'>
-                            <label htmlFor="password">Confirm Password:</label>
-                            <div className='bg-slate-200 p-2 flex items-center rounded-sm   '>
-                                <input type={showp2 ? "password" : "text"}
-                                    name='confirmpassword'
-                                    placeholder='************'
-                                    onChange={handleonchange}
-                                    value={data.confirmpassword}
-                                    className='w-full outline-none h-full  bg-transparent ' />
-                                <div className='cursor-pointer' onClick={() => setShowp2(!showp2)}>
-                                    <span> {
-                                        showp2 ? < FaRegEyeSlash /> : <FaRegEye />
                                     }
                                     </span>
                                 </div>

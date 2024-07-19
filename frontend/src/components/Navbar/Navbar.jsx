@@ -42,10 +42,12 @@ const Navbar = () => {
 
                     </div>
                     {/* buttons */}
-                    <div className=' hidden md:flex justify-between gap-4 items-center'>
-                        <Link to="/sign-up" className='bg-slate-400 border-2  hover:bg-white border-orange-500  rounded px-3 py-1'>Sign-Up</Link>
-                        <Link to="/login" className='bg-orange-500 px-3 hover:bg-white py-1 rounded'>Login</Link>
-                    </div>
+                    {
+                        isLoggedIn === false && (<div className=' hidden md:flex justify-between gap-4 items-center'>
+                            <Link to="/sign-up" className='bg-slate-400 border-2  hover:bg-white border-orange-500  rounded px-3 py-1'>Sign-Up</Link>
+                            <Link to="/login" className='bg-orange-500 px-3 hover:bg-white py-1 rounded'>Login</Link>
+                        </div>)
+                    }
 
                     <button className='block text-white md:hidden text-2xl' onClick={() =>
                         mobile === "hidden"
@@ -67,14 +69,18 @@ const Navbar = () => {
                 </div>
                 {/* https://www.youtube.com/watch?v=EwzWg-Joxq0 */}
                 <div className=' flex flex-col justify-between gap-8 items-center w-full text-center'>
-                    <Link to="/sign-up" className='text-4xl px-6 py-2 w-[80%]  font-semibold  rounded hover:bg-red-700 hover:text-black ' onClick={() =>
-                        mobile === "hidden"
-                            ? setMobile("block") : setMobile("hidden")
-                    }  >Sign-Up</Link>
-                    <Link to="/login" className='text-4xl px-6 py-2 w-[80%] font-semibold border-2 rounded border-yellow-400 ' onClick={() =>
-                        mobile === "hidden"
-                            ? setMobile("block") : setMobile("hidden")
-                    } >Login</Link>
+                    {
+                        isLoggedIn === false && (<>
+                            <Link to="/sign-up" className='text-4xl px-6 py-2 w-[80%]  font-semibold  rounded hover:bg-red-700 hover:text-black ' onClick={() =>
+                                mobile === "hidden"
+                                    ? setMobile("block") : setMobile("hidden")
+                            }  >Sign-Up</Link>
+                            <Link to="/login" className='text-4xl px-6 py-2 w-[80%] font-semibold border-2 rounded border-yellow-400 ' onClick={() =>
+                                mobile === "hidden"
+                                    ? setMobile("block") : setMobile("hidden")
+                            } >Login</Link>
+                        </>)
+                    }
                 </div>
             </div >
         </>

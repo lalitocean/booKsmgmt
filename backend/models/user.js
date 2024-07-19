@@ -10,16 +10,17 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    address: {
+        type: String,
+        required: true
+    },
     password: {
         type: String,
         required: true,
         unique: true
     },
 
-    address: {
-        type: String,
-        required: true
-    },
+
     avtar: {
         type: String,
         default: "https://cdn.pixabay.com/photo/2021/07/02/04/48/user-6380868_1280.png"

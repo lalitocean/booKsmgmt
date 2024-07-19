@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa6";
+import { authActions } from '../store/auth'
+import { useDispatch } from "react-redux"
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
@@ -21,13 +23,28 @@ const Login = () => {
         })
     }
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
     async function handlesubmit(e) {
         e.preventDefault()
-        await postdata1()
+        await postdata()
     }
     // ^ post the login api 
+    const postdata = async () => {
+        try {
+            const res = await axios.post("http://localhost:8080/api/v1/sign-in", data);
+            console.log(res.data)
+            dispatch(authActions.login())
+            dispatch(authActions.changerole(res.data.role))
 
+            localStorage.setItem("id", res.data.id)
+            localStorage.setItem("token", res.data.token)
+            localStorage.setItem("role", res.data.role)
+
+            navigate('/profile')
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
 
     return (
         <section>
