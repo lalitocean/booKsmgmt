@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import userrouter from './routes/user.js';
 import bookrouter from './routes/books.js';
 import favouriterouter from './routes/favourites.js';
+import cartrouter from './routes/cart.js';
 // ^ middlewares ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 const app = express();
@@ -24,6 +25,8 @@ app.use(cookieParser())
 app.use("/api/v1", userrouter)
 app.use("/api/v1", bookrouter)
 app.use("/api/v1", favouriterouter)
+app.use("/api/v1", cartrouter)
+
 
 
 // *connecting the database 

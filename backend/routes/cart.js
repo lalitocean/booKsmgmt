@@ -27,12 +27,14 @@ cartrouter.put("/add-to-cart", authntication2, async (req, res) => {
 })
 
 // ! REMOVING ITEMS FROM THE CART 
-cartrouter.put("/rem-from-cart/:id", authntication2, async (req, res) => {
+cartrouter.put("/rem-from-cart/:bookid", authntication2, async (req, res) => {
     try {
         const { _id } = req.user
         const { bookid } = req.params;
         const userdata = await User.findById(_id)
-        const isbookincart = userdata.cart.includes(bookid)
+        console.log(userdata)
+        const isbookincart = userdata.cart.includes(bookid);
+        console.log(isbookincart)
         if (!isbookincart) {
             return res.json({
                 status: "success",
