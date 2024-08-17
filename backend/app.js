@@ -8,6 +8,7 @@ import userrouter from './routes/user.js';
 import bookrouter from './routes/books.js';
 import favouriterouter from './routes/favourites.js';
 import cartrouter from './routes/cart.js';
+import orderrouter from './routes/order.js';
 // ^ middlewares ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 const app = express();
@@ -26,6 +27,8 @@ app.use("/api/v1", userrouter)
 app.use("/api/v1", bookrouter)
 app.use("/api/v1", favouriterouter)
 app.use("/api/v1", cartrouter)
+app.use("/api/v1", orderrouter)
+
 
 
 

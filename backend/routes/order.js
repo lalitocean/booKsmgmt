@@ -1,7 +1,7 @@
-import Books from "../models/books";
-import Order from "../models/order";
-import User from "../models/user";
-import authntication2 from "./userAuth2";
+import Books from "../models/books.js";
+import Order from "../models/order.js";
+import User from "../models/user.js";
+import authntication2 from "./userAuth2.js";
 import express from "express"
 const orderrouter = express.Router()
 
@@ -14,9 +14,9 @@ orderrouter.post("/do-order", authntication2, async (req, res) => {
             const newOrder = new Order({ user: _id, book: orderdata._id })
             const orderdatafromdb = await newOrder.save();
             // & save order in user model 
-            await User.findByIdAndUpdate(id, { $push: { orders: orderdatafromdb._id } })
+            await User.findByIdAndUpdate(_id, { $push: { orders: orderdatafromdb._id } })
             // & clearing cart 
-            await User.findByIdAndUpdate(id, { $pull: { cart: orderdata._id } })
+            await User.findByIdAndUpdate(_id, { $pull: { cart: orderdata._id } })
         }
         return res.json({
             message: "order placed successfully",

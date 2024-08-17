@@ -2,29 +2,53 @@ import React, { useState, useEffect } from 'react'
 import Loader from '../components/Loader/Loader'
 import axios from 'axios'
 import { MdDelete } from "react-icons/md";
+import { useNavigate } from 'react-router-dom'
 
 const Cart = () => {
     const [cart, setCart] = useState()
+    const [total, setTotal] = useState(null)
+    const navigate = useNavigate()
     const headers = {
         authorization: `Bearer ${localStorage.getItem("token")}`,
     }
     useEffect(() => {
         const fetch = async () => {
             const res = await axios.get("http://localhost:8080/api/v1/get-cart-item", { headers })
-            setCart(res.data.data)
+
         }
         fetch()
     }, [])
+
+    useEffect(() => {
+        if (cart && cart.length > 0) {
+            let total = 0;
+            cart.map((items) => {
+                total += items.price
+            })
+            setTotal(total)
+            total = 0
+        }
+        console.log("cart is jerejfkjkfffkjkjfdfgdfsjfffffffffffffffffff", cart)
+    }, [cart])
 
     const deleteitem = async (bookid) => {
         const res = await axios.put(`http://localhost:8080/api/v1/rem-from-cart/${bookid}`, {}, { headers })
         alert(res.data.message);
     }
 
+    const placeorder = async () => {
+        try {
+            const res = await axios.post("http://localhost:8080/api/v1/do-order", { order: cart }, { headers })
+            alert(res.data.message);
+            navigate("/profile/orderHistory")
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
 
-        <div className='px-12 py-8'>
+        <div className='px-12 py-8 bg-orange-200'>
             {!cart && (
                 <><Loader /></>
             )}
@@ -54,7 +78,21 @@ const Cart = () => {
                     ))}
                 </>)
             }
-            <div></div>
+            {cart && cart.length > 0 && (
+                <div className='mt-4 flex items-center justify-end'>
+                    <div className='p-4 bg-zinc-300 rounded'>
+                        <h1 className='text-3xl'>Total Amount</h1>
+                        <div className='flex mt-3 justify-between items-center'>
+                            <h2 className='font-semibold text-2xl'>{cart.length} books</h2>
+                            <h2 className='font-semibold text-2xl'>₹ {total}</h2>
+
+                        </div>
+                        <div className='w-[100%] mt-3'>
+                            <button onClick={placeorder} className='px-4 py-2 bg-zinc-200 w-full justify-center items-center'>Place your order </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
