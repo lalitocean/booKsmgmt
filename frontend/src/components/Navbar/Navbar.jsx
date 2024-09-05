@@ -20,13 +20,24 @@ const Navbar = () => {
         {
             title: "Profile",
             link: "/profile"
+        },
+        {
+            title: "Admin Profile",
+            link: "/profile"
         }
     ]
 
     const [mobile, setMobile] = useState("hidden")
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
+    const role = useSelector((state) => state.auth.role)
     if (isLoggedIn === false) {
-        links.splice(2, 2)
+        links.splice(2, 3);
+    }
+    if (isLoggedIn === true && role === "user") {
+        links.splice(4, 1);
+    }
+    if (isLoggedIn === true && role === "admin") {
+        links.splice(3, 1);
     }
     return (
 
@@ -37,8 +48,17 @@ const Navbar = () => {
                 {/* for right side navbar links  */}
                 <div className='block md:flex justify-between items-center gap-4'>
                     {/* links  */}
-                    <div className=' hidden md:flex gap-8 items-center'>
-                        {links.map((item, i) => (<Link to={item.link} key={i} > {item.title}</Link>))}
+                    <div className=' hidden md:flex gap-4 '>
+                        {links.map((item, i) => (
+                            <div className='flex items-center'>
+
+                                <Link className='px-4 py-1 border border-blue-500 rounded' to={item.link}
+                                    key={i}>{item.title}</Link>
+
+                            </div>
+
+
+                        ))}
 
                     </div>
                     {/* buttons */}

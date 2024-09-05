@@ -6,7 +6,7 @@ const Hero = () => {
         <>
             <div className='bg-green-700c h-auto flex gap-2 flex-col lg:flex lg:flex-row '>
                 <div className='w-full lg:w-3/6 flex flex-col items-center lg:items-start justify-center'>
-                    <h1 className='font-semibold text-2xl md:text-3xl lg:text-5xl text-yellow-200 tracking-wide font-mono text-center lg:text-left'>
+                    <h1 className='font-semibold text-2xl md:text-3xl lg:text-5xl text-yellow-400 tracking-wide font-mono text-center lg:text-left'>
                         "A room without books is like a body without a soul."
                         - Marcus Tullius Cicero
                     </h1>

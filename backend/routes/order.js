@@ -45,7 +45,7 @@ orderrouter.get("/get-order-history", authntication2, async (req, res) => {
     }
 })
 
-// ! get all orders 
+// ! get all orders  specially for admin 
 orderrouter.get("/get-all-order", authntication2, async (req, res) => {
     try {
         const userdata = await Order.find()

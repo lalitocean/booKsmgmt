@@ -20,9 +20,9 @@ const Favourite = () => {
     return (
         <>
             {favbook?.length === 0 && (
-                <h3 className='flex items-center justify-center text-5xl'>no books avialabale</h3>
+                <h3 className='flex items-center justify-center text-5xl'>No Books</h3>
             )}
-            <div className='grid grid-cols-4 gap-4'>
+            <div className='  grid lg:grid-cols-4 gap-4  '>
                 {favbook && favbook.map((items, i) => (
                     <div key={i}>
                         <Bookcard dataprops={items} favourite={true} />

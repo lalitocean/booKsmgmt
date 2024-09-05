@@ -15,9 +15,9 @@ bookrouter.post("/add-book", authntication2, async (req, res) => {
             })
         }
         const { url, title, author, price, desc, language } = req.body
-        if (!url && title && author && price && desc && language) {
+        if (!(url && title && author && price && desc && language)) {
             return res.status(401).json({
-                message: "add all details "
+                message: "something is missing baby "
             })
         }
         const bookdata = new Books({ url, title, author, price, desc, language })
@@ -37,20 +37,20 @@ bookrouter.post("/add-book", authntication2, async (req, res) => {
 bookrouter.post("/update-book", authntication2, async (req, res) => {
     try {
         const userrole = req.user.role
-        const bookid = req.headers
-        console.log(userrole)
-        if (userrole !== "admin") {
+        const { bookid } = req.headers
+        console.log(bookid)
+        if (userrole != "admin") {
             return res.status(400).json({
                 message: "you don't have to access to update the items "
             })
         }
         const { url, title, author, price, desc, language } = req.body
-        if (!url && title && author && price && desc && language) {
+        if (!(url && title && author && price && desc && language)) {
             return res.status(401).json({
                 message: "add all details "
             })
         }
-        await Books.findByIdAndUpdate(bookid, { url, title, author, price, desc, language })
+        const bookdata = await Books.findByIdAndUpdate(bookid, { url, title, author, price, desc, language })
 
         return res.status(200).json({
             data: bookdata,
@@ -64,14 +64,15 @@ bookrouter.post("/update-book", authntication2, async (req, res) => {
     }
 })
 //! deleting book delete api
-bookrouter.post("/delete-book", authntication2, async (req, res) => {
+bookrouter.delete("/delete-book", authntication2, async (req, res) => {
     try {
         const userrole = req.user.role
-        const bookid = req.headers
-        console.log(userrole)
-        if (userrole !== "admin") {
+        const { bookid } = req.headers
+        // console.log("book id is here", bookid)
+        // console.log(userrole)
+        if (userrole != "admin") {
             return res.status(400).json({
-                message: "you don't have to access to update the items "
+                message: "you don't have to access to delete the items "
             })
         }
         await Books.findByIdAndDelete(bookid)
@@ -80,7 +81,7 @@ bookrouter.post("/delete-book", authntication2, async (req, res) => {
         })
     } catch (error) {
         return res.status(500).json({
-            message: "book update error",
+            message: "book delete error",
             error: error.message
         })
     }

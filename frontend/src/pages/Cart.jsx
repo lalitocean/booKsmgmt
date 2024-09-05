@@ -14,7 +14,7 @@ const Cart = () => {
     useEffect(() => {
         const fetch = async () => {
             const res = await axios.get("http://localhost:8080/api/v1/get-cart-item", { headers })
-
+            setCart(res.data.data)
         }
         fetch()
     }, [])
@@ -48,18 +48,19 @@ const Cart = () => {
 
     return (
 
-        <div className='px-12 py-8 bg-orange-200'>
+        <div className='px-12 py-8 bg-lime-900'>
+            {cart?.length === 0 && (<>
+                <div><h3>no itmes in the cart</h3></div>
+            </>)}
             {!cart && (
                 <><Loader /></>
             )}
-            {cart?.length === 0 && cart && (<>
-                <div><h3>no itmes in the cart</h3></div>
-            </>)}
-            {cart &&
+
+            {cart?.length > 0 &&
                 (<>
-                    <h1 className='text-5xl font-semibold text-zinc-500'>your cart</h1>
+                    <h1 className='text-5xl font-semibold text-black'>your cart</h1>
                     {cart.map((items, i) => (
-                        <div className='flex my-4 p-4 bg-red-600 flex-col md:flex-row justify-between items-center gap-6' key={i}>
+                        <div className='flex my-4 p-4 bg-gray-300 flex-col md:flex-row justify-between items-center gap-6' key={i}>
                             <img src={items.url} alt="" className='h-[20vh] md:h-[10vh] object-cover' />
                             <div className='w-full md:w-auto'>
                                 <h1 className='text-2xl font-semibold text-start'>{items.title}</h1>
@@ -70,7 +71,7 @@ const Cart = () => {
                             </div>
                             <div className='flex mt-4 w-full md:w-auto items-center gap-4 justify-between'>
                                 <h2 className='text-3xl font-semibold'>₹ {items.price}</h2>
-                                <button className='rounded p-2 bg-red-400' onClick={() => { deleteitem(items._id) }}>
+                                <button className='rounded p-2 bg-red-500' onClick={() => { deleteitem(items._id) }}>
                                     <MdDelete />
                                 </button>
                             </div>
@@ -88,7 +89,7 @@ const Cart = () => {
 
                         </div>
                         <div className='w-[100%] mt-3'>
-                            <button onClick={placeorder} className='px-4 py-2 bg-zinc-200 w-full justify-center items-center'>Place your order </button>
+                            <button onClick={placeorder} className='px-4 py-2 bg-blue-700 w-full justify-center items-center text-white '>Place your order </button>
                         </div>
                     </div>
                 </div>

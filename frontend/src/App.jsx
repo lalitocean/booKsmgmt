@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Home from './pages/Home'
 import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer/Footer'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import AllBooks from './pages/AllBooks'
 import Cart from './pages/Cart'
 import Profile from './pages/Profile'
@@ -14,6 +14,10 @@ import { authActions } from './store/auth'
 import Favourite from './components/Profile/Favourite'
 import Settings from './components/Profile/Settings'
 import Newcom from './components/Profile/Newcom'
+import Allorders from './pages/Allorders'
+import AddBook from './pages/AddBook'
+import UpdateBook from './pages/UpdateBook'
+// import ProtectedRoute from './utils/ProtectedRoute'
 
 const App = () => {
   const dispatch = useDispatch();
@@ -38,15 +42,24 @@ const App = () => {
         <Route exact path='/' element={<Home />} />
         <Route path='/all-books' element={<AllBooks />} />
         <Route path='/cart' element={<Cart />} />
+
+
+
         <Route path='/profile' element={<Profile />} >
-          <Route index element={<Favourite />} />
+          {
+            role === "user" ? <Route index element={<Favourite />} /> : <Route index element={<Allorders />} />
+          }
+          {role === "admin" ? <Route path='/profile/add-book' element={<AddBook />} /> : ""}
           <Route path='/profile/settings' element={<Settings />} />
           <Route path='/profile/orderHistory' element={<Newcom />} />
 
         </Route>
+
+
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/login' element={<Login />} />
         <Route path='/view-book-details/:id' element={<ViewBookDetails />} />
+        <Route path='/update-book/:id' element={<UpdateBook />} />
       </Routes>
       <Footer />
 

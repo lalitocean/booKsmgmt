@@ -1,23 +1,53 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { authActions } from '../../store/auth'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Sidebar = ({ data }) => {
+    const dispatch = useDispatch()
+    const history = useNavigate()
+    const role = useSelector((state) => state.auth.role)
     return (
         <>
-            <div className='bg-pink-400  p-4 rounded flex flex-col items-center justify-between h-[100%]'>
-                <div>  <img src={data.avtar} alt="" />
-                    <p>{data.username}</p>
-                    <p>{data.email}</p></div>
-                <div className='w-full mt-4 hidden bg-zinc-300 lg:block h-[1px]'></div>
-                <div className='bg-green-200 p-4  flex flex-col gap-3 items-center justify-center'>
+            <div className='bg-gray-300  p-4 rounded flex flex-col items-center justify-evenly h-[90%]  '>
+                <div className=' ' >  <img className='rounded-full  ' src={data.avtar} alt="" />
+                    <p>Name: {data.username}</p>
+                    <p>Email: {data.email}</p></div>
+                <div className='w-full mt-4 hidden bg-red-900 lg:block h-[2px]'></div>
+                {
+                    role === 'user' && (
+                        <div className='  py-4 flex-col gap-2 items-start justify-start hidden lg:flex  '>
 
-                    <Link className='text-2xl font-semibold bg-green-400 p-4' to="/profile" >Favourite</Link>
-                    <Link className='text-2xl font-semibold bg-green-400 p-4' to="/profile/orderHistory">order History</Link>
-                    <Link className='text-2xl font-semibold bg-green-400 p-4' to="/profile/settings" >Settings</Link>
+                            <Link className='text-2xl font-semibold   px-4 py-1   border-2 border-blue-400 rounded hover:bg-blue-300 ' to="/profile" >Favourite</Link>
+                            <Link className='text-2xl font-semibold  px-4 py-1   border-2 border-blue-400  rounded hover:bg-blue-300 ' to="/profile/orderHistory">order History</Link>
+                            <Link className='text-2xl font-semibold   px-4 py-1   border-2 border-blue-400  rounded hover:bg-blue-300  ' to="/profile/settings" >Settings</Link>
 
-                </div>
-                <button>Logout</button>
-            </div>
+                        </div>
+                    )
+                }
+                {
+                    role === 'admin' && (
+                        <div className=' p-4 flex-col gap-3 items-center justify-center hidden lg:flex'>
+
+                            <Link className='text-2xl font-semibold   px-4 py-1   border-2 border-blue-400  rounded hover:bg-blue-300' to="/profile" >All Orders</Link>
+                            <Link className='text-2xl font-semibold   px-4 py-1   border-2 border-blue-400  rounded hover:bg-blue-300' to="/profile/add-book">Add Book</Link>
+
+
+                        </div>
+                    )
+                }
+                <button onClick={
+                    () => {
+                        dispatch(authActions.logout())
+                        dispatch(authActions.changerole("user"))
+                        localStorage.clear("id")
+                        localStorage.clear("token")
+                        localStorage.clear("role")
+                        history("/")
+                    }
+
+                }>Logout</button>
+            </div >
 
         </>
     )

@@ -21,14 +21,14 @@ const AllBooks = () => {
     }, [])
     return (
         <>
-            <div className='px-10 py-8 bg-green-700'>
+            <div className='px-10 py-8 bg-lime-900'>
 
                 <div className='p-4 mt-8 bg-zinc-700'>
-                    <h4 className='text-3xl '>All Books</h4>
+                    <h4 className='text-3xl  grid place-items-center '>All Books</h4>
                     {!data && <div className='flex items-center justify-center my-4 '> <Loader /></div>}
                     <div className='my-8 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-8'>
                         {data && data.map((items, i) => <div>
-                            <Bookcard dataprops={items} />
+                            <Bookcard dataprops={items} key={i} />
                         </div>
                         )}
                     </div>

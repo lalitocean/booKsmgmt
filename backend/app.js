@@ -33,7 +33,7 @@ app.use("/api/v1", orderrouter)
 
 
 // *connecting the database 
-connection();
+connection(process.env.DB_STRING);
 const port = process.env.PORT || 3000;
 
 
