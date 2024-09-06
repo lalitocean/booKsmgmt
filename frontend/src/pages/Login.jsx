@@ -47,13 +47,11 @@ const Login = () => {
     }
 
     return (
-        <section>
-            <div className='container mx-auto p-5 mt-3'>
+        <section className='h-screen bg-lime-800 py-8  '>
+            <div className='container mx-auto p-5   grid place-items-center bg-lime-800'>
 
-                <div className='w-full max-w-md bg-white mx-auto p-4 border-2 border-red-800'>
-                    <div className='w-20   h-20 mx-auto'>
-
-                    </div>
+                <div className='w-full max-w-md bg-gray-300 mx-auto p-4 border-2 rounded'>
+                    <h1 className='grid place-items-center mb-5 text-3xl font-semibold '>Login</h1>
                     <form action="" onSubmit={handlesubmit} className='flex flex-col gap-5'>
                         <div className='grid  '>
                             <label htmlFor="email">Email:</label>

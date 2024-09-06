@@ -10,9 +10,11 @@ const Sidebar = ({ data }) => {
     return (
         <>
             <div className='bg-gray-300  p-4 rounded flex flex-col items-center justify-evenly h-[90%]  '>
-                <div className=' ' >  <img className='rounded-full  ' src={data.avtar} alt="" />
+                <div className='h-[10%] w-[85%] lg:h-[20%] flex flex-col items-center justify-start' >
+                    <img className='rounded-full h-[70%]  ' src={data.avtar} alt="" />
                     <p>Name: {data.username}</p>
-                    <p>Email: {data.email}</p></div>
+                    <p>Email: {data.email}</p>
+                </div>
                 <div className='w-full mt-4 hidden bg-red-900 lg:block h-[2px]'></div>
                 {
                     role === 'user' && (

@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios"
 import { FaUser } from "react-icons/fa";
+import { IoOpenOutline } from "react-icons/io5";
+import SeeUserData from './SeeUserData.jsx'
 
 const Allorders = () => {
 
     const [orderdata, setorderdata] = useState('')
+    const [userDiv, setUserDiv] = useState("hidden")
+    const [userData, setUserData] = useState()
+
     const headers = {
         authorization: `Bearer ${localStorage.getItem("token")}`,
     }
@@ -40,10 +45,10 @@ const Allorders = () => {
                         <div className='w-[9%]'>
                             <h1>Price</h1>
                         </div>
-                        <div className='w-[16%]'>
+                        <div className='w-[20%]'>
                             <h1>Status</h1>
                         </div>
-                        <div className='w-[16%]'>
+                        <div className='w-[12%] grid place-items-center'>
                             <FaUser />
                         </div>
 
@@ -64,7 +69,7 @@ const Allorders = () => {
                                 <div className='w-[9%]'>
                                     <h1>{items.book.price}</h1>
                                 </div>
-                                <div className='w-[16%]'>
+                                <div className='w-[20%]'>
                                     <h1 className='font-semibold'>
                                         <button>
                                             {items.status === "order Placed" ? (
@@ -85,13 +90,26 @@ const Allorders = () => {
                                         </div>
                                     </h1>
                                 </div>
-                                <div className='w-[16%]'>
-                                    <h1>{ }</h1>
+                                <div className='w-[12%] grid place-items-center'>
+                                    <button onClick={() => {
+                                        setUserDiv("fixed")
+                                        setUserData(items.user)
+                                    }} className='text-2xl'>
+                                        <IoOpenOutline />
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
+            }
+            {
+                userData && (<SeeUserData
+                    userData={userData}
+                    userDiv={userDiv}
+                    setUserDiv={setUserDiv}
+                />)
+
             }
         </>
     )

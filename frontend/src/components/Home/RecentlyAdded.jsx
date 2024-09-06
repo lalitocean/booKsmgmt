@@ -23,10 +23,10 @@ const RecentlyAdded = () => {
     return (
         <>
             <div className='p-4 mt-8 bg-zinc-700'>
-                <h4 className='text-3xl grid place-items-center'>Recently added books</h4>
+                <h4 className='text-3xl grid place-items-center text-blue-200 font-semibold'>Recently added books</h4>
                 {!data && <div className='flex items-center justify-center my-4 '> <Loader /></div>}
                 <div className='my-8 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-8'>
-                    {data && data.map((items, i) => <div>
+                    {data && data.map((items, i) => <div key={i}>
                         <Bookcard dataprops={items} />
                     </div>
                     )}

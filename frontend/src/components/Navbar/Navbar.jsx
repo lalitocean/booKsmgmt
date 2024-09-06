@@ -50,10 +50,10 @@ const Navbar = () => {
                     {/* links  */}
                     <div className=' hidden md:flex gap-4 '>
                         {links.map((item, i) => (
-                            <div className='flex items-center'>
+                            <div className='flex items-center' key={i}>
 
                                 <Link className='px-4 py-1 border border-blue-500 rounded' to={item.link}
-                                    key={i}>{item.title}</Link>
+                                >{item.title}</Link>
 
                             </div>
 
