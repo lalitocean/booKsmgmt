@@ -30,7 +30,8 @@ const Allorders = () => {
 
             </div>)}
             {
-                orderdata && orderdata.length > 0 && <div className='h-[100%] w-full p-0 md:p-4 text-zinc-200'>
+                orderdata && orderdata.length > 0 &&
+                <div className='h-[100%] w-full p-0 md:p-4 text-zinc-200'>
                     <h1 className='text-white font-semibold text-3xl grid place-items-center mb-2'>All Orders History</h1>
                     <div className='bg-zinc-800 w-full rounded py-2 px-4  flex gap-2'>
                         <div className='w-[5%]'>
@@ -61,20 +62,20 @@ const Allorders = () => {
                                     <h1>{i + 1}.</h1>
                                 </div>
                                 <div className='w-[34%] md:w-[24%] hover:text-blue-400'>
-                                    <h1>{items.book.title}</h1>
+                                    <h1>{items?.book?.title}</h1>
                                 </div>
                                 <div className='hidden md:w-[36%] md:block'>
-                                    <h1>{items.book.desc.slice(0, 50)}...</h1>
+                                    <h1>{items?.book?.desc.slice(0, 50)}...</h1>
                                 </div>
                                 <div className='w-[22%] md:w-[14%]'>
-                                    <h1>{items.book.price}</h1>
+                                    <h1>{items?.book?.price}</h1>
                                 </div>
                                 <div className='w-[32%] md:w-[16%] flex items-start '>
                                     <h1 className='font-semibold w-full'>
                                         <button>
-                                            {items.status === "order Placed" ? (
-                                                <div className='text-yellow-500'>{items.status}</div>
-                                            ) : items.status === "cancelled" ? (<div className='text-red-600'>{items.status}</div>) :
+                                            {items?.status === "order Placed" ? (
+                                                <div className='text-yellow-500'>{items?.status}</div>
+                                            ) : items?.status === "cancelled" ? (<div className='text-red-600'>{items?.status}</div>) :
                                                 (<div className='text-green-500'>{items.status}</div>)}
                                         </button>
                                         <div className='flex w-full'>
@@ -93,7 +94,7 @@ const Allorders = () => {
                                 <div className='w-[5%] grid place-items-center'>
                                     <button onClick={() => {
                                         setUserDiv("fixed")
-                                        setUserData(items.user)
+                                        setUserData(items?.user)
                                     }} className='text-2xl'>
                                         <IoOpenOutline />
                                     </button>
@@ -103,6 +104,7 @@ const Allorders = () => {
                     ))}
                 </div>
             }
+
             {
                 userData && (<SeeUserData
                     userData={userData}

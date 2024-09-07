@@ -14,7 +14,7 @@ const Favourite = () => {
             setFavbook(response.data.data)
         }
         fetch()
-    }, [favbook])
+    }, [])
 
 
     return (

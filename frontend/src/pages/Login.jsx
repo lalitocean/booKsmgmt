@@ -25,8 +25,8 @@ const Login = () => {
 
     function setNormalUser() {
         setData({
-            email: "ajab@gmail.com",
-            password: "ajab"
+            email: "user@gmail.com",
+            password: "user"
         });
     }
     function setAdmin() {
