@@ -22,6 +22,19 @@ const Login = () => {
             }
         })
     }
+
+    function setNormalUser() {
+        setData({
+            email: "ajab@gmail.com",
+            password: "ajab"
+        });
+    }
+    function setAdmin() {
+        setData({
+            email: "alpha@gmail.com",
+            password: "alpha"
+        });
+    }
     const navigate = useNavigate()
     const dispatch = useDispatch()
     async function handlesubmit(e) {
@@ -52,6 +65,15 @@ const Login = () => {
 
                 <div className='w-full max-w-md bg-gray-300 mx-auto p-4 border-2 rounded'>
                     <h1 className='grid place-items-center mb-5 text-3xl font-semibold '>Login</h1>
+                    <p className='bg-red-500 p-1'>Here are two button just login as you want</p>
+                    <div className='flex justify-evenly mt-2'>
+                        <button className=' font-semibold rounded py-0 px-6 text-1xl border bg-blue-400 ' onClick={() => {
+                            setNormalUser()
+                        }}>User</button>
+                        <button className='font-semibold   py-2 px-4 text-1xl border bg-blue-400 rounded' onClick={() => {
+                            setAdmin()
+                        }}>Admin</button>
+                    </div>
                     <form action="" onSubmit={handlesubmit} className='flex flex-col gap-5'>
                         <div className='grid  '>
                             <label htmlFor="email">Email:</label>
